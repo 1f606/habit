@@ -34,12 +34,12 @@
     <nut-image-preview :show="showPreview" :images="imgData" @close="showPreview = false"/>
 
 
-    <view class="text-area">
-      <text class="title font-mono text-rose-500 text-2xl">{{ env }}</text>
+    <view class="text-area my-1">
+      <text class="title font-mono text-rose-500 text-1xl">{{ env }}</text>
     </view>
 
-    <view class="text-area">
-      <text class="title font-mono text-rose-500 text-2xl">{{ api }}</text>
+    <view class="text-area my-1">
+      <text class="title font-mono text-rose-500 text-1xl">{{ api }}</text>
     </view>
 
   </view>

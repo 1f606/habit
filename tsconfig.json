@@ -1,0 +1,19 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": [
+      "@dcloudio/types"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

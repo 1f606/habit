@@ -1,0 +1,34 @@
+{
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+		  "^nut-(.*)?-(.*)": "uniapp-nutui/components/$1$2/$1$2.vue",
+		  "^nut-(.*)": "uniapp-nutui/components/$1/$1.vue"
+		}
+	},
+	// 在pages.json中为页面路由指定name字段后，即可以使用name跳转
+	// 注意：此处定义的name字段必须全局唯一。
+
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"name":"index",
+			"style": {
+				"navigationBarTitleText": "Tailwind"
+			}
+		},
+		{
+			"path": "pages/wode/index",
+			"name":"wode",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

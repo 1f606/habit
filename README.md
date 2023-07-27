@@ -124,3 +124,5 @@ npm run cz
 | `revert`   | 还原               | 恢复之前的提交                                                                        |
 | `release`  | 发布新版本         | \-                                                                                    |
 | `workflow` | 工作流相关文件修改 | \-                                                                                    |
+
+![Image text](https://gitee.com/weibo-2213902562/Bard/raw/master/src/main/resources/readmeImg/addLabelPage.png)

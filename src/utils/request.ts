@@ -54,7 +54,6 @@ http.interceptors.response.use(
             title: errMsg,
             duration: 2000,
         });
-
         return Promise.resolve(error);
     },
 );

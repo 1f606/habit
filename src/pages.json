@@ -9,18 +9,13 @@
 	// 在pages.json中为页面路由指定name字段后，即可以使用name跳转
 	// 注意：此处定义的name字段必须全局唯一。
 
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/login/index",
-			"name":"login",
-			"style": {
-				"navigationStyle": "custom", // 使用自定义导航栏，系统会关闭默认的原生导航栏
-				"navigationBarTitleText": "login"
-			}
-		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages		
 		{
 			"path": "pages/index/index",
-			"name":"index",
+			"name":"home",
+			"meta": {
+                "islogin": true
+            },
 			"style": {
 				"navigationBarTitleText": "Tailwind"
 			}
@@ -28,8 +23,22 @@
 		{
 			"path": "pages/wode/index",
 			"name":"wode",
+			"meta": {
+                "islogin": true
+            },
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"name":"login",
+			"meta": {
+                "islogin": false
+            },
+			"style": {
+				"navigationStyle": "custom", // 使用自定义导航栏，系统会关闭默认的原生导航栏
+				"navigationBarTitleText": "login"
 			}
 		}
 	],

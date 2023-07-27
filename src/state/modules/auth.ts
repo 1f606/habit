@@ -9,6 +9,7 @@ import { defineStore } from 'pinia';
 
 interface AuthState {
     token?: string;
+
     user: Record<string, any>;
 }
 
@@ -18,6 +19,10 @@ export const useAuthStore = defineStore({
         token: undefined,
         user: {},
     }),
-    getters: {},
+    getters: {
+        isLogin(): boolean {
+            return this.token !== undefined;
+        },
+    },
     actions: {},
 });

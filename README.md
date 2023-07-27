@@ -1,88 +1,59 @@
-#  uni-app Vue3 Vite4 pinia2 TypeScript uni-mini-router 基础框架
-
+# uni-app Vue3 Vite4 pinia2 TypeScript 基础框架
 
 ## 简介
 
 -   **uni-app Vue3 Vite4 pinia2 TypeScript 基础框架**
--   cli 创建的 Vue3/Vite 项目 与 使用 HBuilderX 导入插件 的包有差异,请直接访问 [开源地址](https://gitee.com/h_mo/uniapp-vue3-vite-ts-template)
+-   cli 创建的 Vue3/Vite 项目 与 使用 HBuilderX 导入插件 的包有差异,请直接访问 [开源地址](https://gitee.com/zhou-yankai/uniapp-vite-vue3-pinia-ts)
 
 ### 说明
 
--   框架完全基于 Vue3  `<script setup>` 写法,不支持 Vue2;
+-   框架完全基于 Vue3 `<script setup>` 写法,不支持 Vue2;
 -   可用于学习与交流;
--   目前测试 H5、微信小程序,APP(Android),支付宝小程序通过;
+-   目前测试 H5、微信小程序,APP(Android)通过;
 -   其他平台暂未测试,后续会增加;
--   如发现问题或建议可在评论区留言, 或提[Issues](https://gitee.com/h_mo/uniapp-vue3-vite-ts-template/issues)及[PR](https://gitee.com/h_mo/uniapp-vue3-vite-ts-template/pulls),会及时处理;
+-   如发现问题或建议可在评论区留言, 看到会及时处理;
 -   如有需求亦可在评论区留言,或在此项目基础上增加;
--   [代码规范 & 详细解释 husky、prettier、eslint、lint-staged 的作用和使用](https://blog.csdn.net/cookcyq__/article/details/125457031)
+-   [代码规范 husky、prettier、eslint、lint-staged、stylelint 的作用和使用]
 
 ## 特性
 
 -   **最新技术栈**：使用 Vue3/Vite4/pinia ,TypeScript 等前端前沿技术开发;
--   **tailwindcss** 
--   **[Unocss](https://github.com/unocss/unocss)**: 原子化 CSS, [iconify](https://github.com/iconify/iconify)图标
--   **Eslint/Prettier**: 规范代码格式,统一编码;
+-   **最新技术栈**(https://www.uniapp-nutui.tech/guide/quick-start.html)：uniapp-nutui 组件库，基于Taro版NutUi 4.x版本修改而来，适配了uni-app, 使用 Vue 技术栈开发小程序应用，开箱即用，拥有丰富的业务组件。
+-   **Tailwind CSS**(https://www.tailwindcss.cn/docs/installation) Tailwind CSS 是一个功能类优先的 CSS 框架，它集成了诸如 flex, pt-4, text-center 和 rotate-90 这样的的类，它们能直接在脚本标记语言中组合起来，构建出任何设计。
+-   **Eslint/Prettier/stylelint**: 规范代码样式格式,统一编码;
+-   **husky**: 提交代码钩子
 -   **路由拦截**: [uni-mini-router](https://gitee.com/fant-mini/uni-mini-router),类似Vue Router的API和功能,在uni-app中进行路由跳转、传参、拦截等常用操作;
--   **请求拦截**: 使用[alova 请求](https://github.com/alovajs/alova),支持请求和响应拦截等;
--   **缓存加密**: 支持 AES 加密缓存,可设置区分在开发或生成环境中是否加密;
+-   **请求拦截**: 等待接入;
 
 ## 目录结构
 
-```shell
-.
 ├─ src
-│   ├─assets # 静态资源目录
-│   │
-│   ├─components # 组件目录
-│   │   ├─ BasicButton
-│   │   │    ├─index.vue
-│   │   │    └─prpos.ts
-│   │   └─...
-│   │
-│   ├─enums # 枚举/常量
-│   │   ├─ cacheEnum.ts
-│   │   └─...
-│   │
-│   ├─pages # 页面
-│   │   ├─ index
-│   │   │    └─index.vue
-│   │   └─...
-│   │
-│   ├─services # 接口相关
-│   │   ├─ api # api
-│   │   │    ├─auth.ts
-│   │   │    └─...
-│   │   │
-│   │   └─ model # 数据模型
-│   │        ├─authModel.d.ts
-│   │        └─...
-│   │
-│   ├─settings # 设置
-│   │   └─ encryptionSetting # 加密设置
-│   │
-│   ├─state # 状态管理模式(pinia)
-│   │   ├─ modules # 数据模块
-│   │   │    ├─auth.ts
-│   │   │    └─...
-│   │   │
-│   │   └─ index.ts
-│   │
-│   ├─static # 静态公共文件
-│   │   ├─ images # 图片
-│   │   │    ├─avatar.png
-│   │   │    └─...
-│   │   │
-│   │   └─ ...
-│   │
-│   ├─types # 类型文件
-│   │   ├─ http.d.ts
-│   │   └─ ...
-│   │
-│   └─utils # 工具类
-│       ├─ cache # 缓存相关目录
-│       ├─ http  # request相关目录
-│       ├─ interceptors  # 拦截器相关目录
-│       └─ ...
+│ ├─static # 静态公共文件
+│ │ ├─ images # 图片
+│ │ │ ├─.png
+│ │ │ └─...
+│ │ │
+│ │ └─ ...
+│ │
+│ ├─components # 组件目录
+│ │
+│ ├─pages # 页面
+│ │ ├─ index
+│ │ │ └─index.vue
+│ │ └─...
+│ │
+│ ├─style # 样式
+│ │
+│ ├─state # 状态管理模式(pinia)
+│ │ ├─ modules # 数据模块
+│ │ │ ├─auth.ts
+│ │ │ └─...
+│ │ │
+│ │ └─ index.ts
+│ │
+│ └─utils # 工具类
+│ ├─ cache # 缓存相关目录
+│ └─ ...
 │
 ├─ .env
 ├─ .env.development
@@ -92,65 +63,44 @@
 ├─ .gitignore
 ├─ .prettierignore
 ├─ .prettierrc.js
-├─ favicon.ico
+├─ .commitlint.config.js
+├─ .stylelint.config
 ├─ index.html
 ├─ package.json
-├─ pnpm-lock.yaml
 ├─ README.md
-├─ tree.txt
+├─ tailwind.config.js
 ├─ tsconfig.json
 └─ vite.config.ts
 
-```
+````
 
-## 预览
-
--   H5
-
-    ![h5](https://api-catch.ranesuangyu.top/images/20220621/364f2b47d91ae5ae82a33d33854e2540.png)
-
--   小程序(体验版-需申请体验)
-
-    ![小程序](http://api-catch.ranesuangyu.top/images/20220621/8d4388315ef5b8630d0c0b3963d1ba6b.jpg)
 
 ## 安装使用
 
 -   安装依赖
 
 ```bash
-pnpm install
-```
+npm install
+````
 
 -   运行
 
 ```bash
 # 其他端请查看 package.json script
-pnpm dev:h5
+npm dev:h5
 ```
 
 -   打包
 
-```bash
+````bash
 # 其他端请查看 package.json script
-pnpm build:h5
-```
+npm build:h5
 
--   更新依赖到最新（新手请忽略）
+-   代码提交命令
 
 ```bash
-pnpm up
-# 打开HBuilder X alpha桌面程序-->点击上面的帮助-->历次更新说明-->获取最新版本号（如：3.7.2.20230217-alpha）
-npx @dcloudio/uvm 3.7.2.20230217-alpha
-```
-
-## Gitee 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-## [Gitee 贡献提交规范](https://www.conventionalcommits.org/zh-hans/v1.0.0/)
+npm run cz
+````
 
 ### 提交类型
 
@@ -169,31 +119,3 @@ npx @dcloudio/uvm 3.7.2.20230217-alpha
 | `revert`   | 还原               | 恢复之前的提交                                                                        |
 | `release`  | 发布新版本         | \-                                                                                    |
 | `workflow` | 工作流相关文件修改 | \-                                                                                    |
-
-### 提交别名
-
-| 提交类型           | 映射到  | 标题     | 描述                       |
-| ------------------ | ------- | -------- | -------------------------- |
-| `initial`          | `feat`  | 最初的   | 初始提交                   |
-| `dependencies`     | `fix`   | 依赖项   | 更新依赖项                 |
-| `peerDependencies` | `fix`   | 对等依赖 | 更新对等依赖项             |
-| `devDependencies`  | `chore` | 开发依赖 | 更新开发依赖               |
-| `metadata`         | `fix`   | 元数据   | 更新元数据（package.json） |
-
-### 快捷别名提示
-
-1.  resolve a conflict：解决冲突
-2.  merge branch：合并分支
-3.  feat: [...] : 添加的新功能说明
-4.  fix: [...] : 修复的 bug 说明
-5.  initial project：初始化项目
-6.  style: [...] : 修改的样式范围
-7.  perf：[...] : 优化的范围
-8.  release : 发布新版本
-9.  docs: 文档修改
-10. refactor： 代码重构
-11. revert： 还原之前的版本
-12. dependencies： 依赖项修改
-13. devDependencies： 开发依赖修改
-14. review：复习，回顾
-15. strengthen: 加强，巩固

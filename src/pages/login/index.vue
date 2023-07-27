@@ -35,8 +35,10 @@
 
 <script lang="ts" setup name="login">
 import { reactive } from 'vue';
+import { useAuthStore } from '@/state/modules/auth';
 import { useRouter } from 'uni-mini-router';
 const router = useRouter();
+const authStore = useAuthStore();
 const form = reactive({
     name: '小团体',
     passWord: '123456',
@@ -46,8 +48,9 @@ const form = reactive({
 
 // login登录
 function login() {
+    authStore.token = '测试';
     router.push({
-        name: 'index',
+        name: 'home',
     });
 }
 </script>
@@ -56,32 +59,35 @@ function login() {
 .contain {
     width: 100%;
     height: 100vh;
-
     background: url('@/static/back.jpg') no-repeat;
     background-size: cover;
 
     .con {
         width: 100%;
         height: 100%;
-        background: RGBA(0, 0, 0, 0.4);
+        background: rgb(0 0 0 / 40%);
+
         .content {
             position: absolute;
-            left: 30rpx;
-            right: 30rpx;
-            padding: 30rpx;
             top: 200px;
-            background: #ffffff;
+            right: 30rpx;
+            left: 30rpx;
+            padding: 30rpx;
+            background: #fff;
+
             .ip-info {
                 margin-bottom: 50rpx;
+
                 .inps {
-                    padding: 20rpx 20rpx;
-                    border-bottom: 2rpx solid rgba(204, 204, 204, 1);
+                    padding: 20rpx;
+                    border-bottom: 2rpx solid rgb(204 204 204 / 100%);
                 }
             }
 
             .btns {
                 margin-bottom: 30rpx;
             }
+
             .desc {
                 text-align: center;
             }

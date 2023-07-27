@@ -125,4 +125,4 @@ npm run cz
 | `release`  | 发布新版本         | \-                                                                                    |
 | `workflow` | 工作流相关文件修改 | \-                                                                                    |
 
-![Image text](https://gitee.com/weibo-2213902562/Bard/raw/master/src/main/resources/readmeImg/addLabelPage.png)
+![Image text](https://gitee.com/zhou-yankai/uniapp-vite-vue3-pinia-ts/blob/master/src/static/image/ab464291d2f39f4e38178ac21ca4f58.png)

@@ -73,6 +73,8 @@ const title = ref('Tailwind CSS');
 
 const showPreview = ref(false);
 
+// let name = 1312;
+
 // let name = 1321;
 
 const imgData = [

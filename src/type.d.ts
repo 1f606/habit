@@ -1,1 +1,1 @@
-declare const ROUTES: []
+declare const ROUTES: [];

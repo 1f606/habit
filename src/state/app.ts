@@ -7,16 +7,16 @@ interface AppState {
 export const useAppStore = defineStore({
     id: 'app-store',
     state: (): AppState => ({
-        conunt:1
+        conunt: 1,
     }),
     getters: {
-        getNum():number{
-            return this.conunt
-        }
+        getNum(): number {
+            return this.conunt;
+        },
     },
     actions: {
-        addnum(){
-            this.conunt++
-        }
+        addnum() {
+            this.conunt++;
+        },
     },
 });

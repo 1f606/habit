@@ -1,12 +1,17 @@
 <template>
-  <view class="content">
-    <image class="logo rounded-lg" @click="showPreview = true" src="/static/logo.png" />
-    <view class="text-area">
-      <text class="title font-mono text-purple-500 text-4xl">{{ title }}</text>
-    </view>
+    <view class="content">
+        <image
+            class="logo rounded-lg"
+            src="/static/logo.png"
+            @click="showPreview = true"
+        />
+        <view class="text-area">
+            <text class="title font-mono text-purple-500 text-4xl">
+                {{ title }}
+            </text>
+        </view>
 
-
-    <!-- <view>
+        <!-- <view>
       <text class="font-mono text-purple-500 ">
            路由  uni-mini-router
       </text>
@@ -15,99 +20,93 @@
 
     </view> -->
 
+        <nut-icon name="dongdong" custom-color="#fa2c19" />
+        <nut-icon name="dongdong" custom-color="#64b578" />
+        <nut-icon name="JD" custom-color="#fa2c19" />
 
-    <nut-icon name="dongdong" custom-color="#fa2c19"></nut-icon>
-    <nut-icon name="dongdong" custom-color="#64b578"></nut-icon>
-    <nut-icon name="JD" custom-color="#fa2c19"></nut-icon>
+        <view class="text-area">
+            <text class="title font-mono text-rose-500 text-2xl">
+                {{ usetsto.getNum }}
+            </text>
+        </view>
 
-   
-    <view class="text-area">
-      <text class="title font-mono text-rose-500 text-2xl">{{ usetsto.getNum }}</text>
+        <nut-button custom-color="#7232dd" @click="usetsto.addnum">
+            pinia++
+        </nut-button>
+
+        <nut-button custom-color="#7232dd" @click="push"> 跳转路由 </nut-button>
+
+        <nut-image-preview
+            :show="showPreview"
+            :images="imgData"
+            @close="showPreview = false"
+        />
+
+        <view class="text-area my-1">
+            <text class="title font-mono text-rose-500 text-1xl">
+                {{ env }}
+            </text>
+        </view>
+
+        <view class="text-area my-1">
+            <text class="title font-mono text-rose-500 text-1xl">
+                {{ api }}
+            </text>
+        </view>
     </view>
-
-    <nut-button custom-color="#7232dd" @click="usetsto.addnum">pinia++</nut-button>
-
-
-    <nut-button custom-color="#7232dd" @click="push">跳转路由</nut-button>
-
-
-    <nut-image-preview :show="showPreview" :images="imgData" @close="showPreview = false"/>
-
-
-    <view class="text-area my-1">
-      <text class="title font-mono text-rose-500 text-1xl">{{ env }}</text>
-    </view>
-
-    <view class="text-area my-1">
-      <text class="title font-mono text-rose-500 text-1xl">{{ api }}</text>
-    </view>
-
-  </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'uni-mini-router'
-import coas from '@/static/logo.png'
+<script setup lang="ts" name="index">
+import { ref } from 'vue';
+import { useRouter } from 'uni-mini-router';
+import coas from '@/static/logo.png';
 
-import { useAppStore } from '@/state/app'
+import { useAppStore } from '@/state/app';
 
+const router = useRouter();
+const usetsto = useAppStore();
 
+let env = import.meta.env.VITE_APP_ENV;
+let api = import.meta.env.VITE_BASE_URL;
 
+const title = ref('Tailwind CSS');
 
-const router = useRouter()
-const usetsto = useAppStore()
+const showPreview = ref(false);
 
-let env = import.meta.env.VITE_APP_ENV
-let api =import.meta.env.VITE_BASE_URL
+// let name = 1321;
 
-
-const title = ref('Tailwind CSS')
-
-
-const showPreview = ref(false)
-
-const  imgData = [
+const imgData = [
     {
-      src: coas
+        src: coas,
     },
-               
-  ]
-
-
+];
 
 // 跳转路由
-function push(){
-   router.push({
-      name:'wode'
-   })
+function push() {
+    router.push({
+        name: 'wode',
+    });
 }
-
-
 </script>
 
 <style>
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
+    margin: 200rpx auto 50rpx;
+    width: 200rpx;
+    height: 200rpx;
 }
 
 .text-area {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
-
 
 :deep(.nut-image-preview-custom-pop) {
     display: flex;
@@ -116,6 +115,4 @@ function push(){
     height: 100%;
     background: transparent !important;
 }
-
-
 </style>

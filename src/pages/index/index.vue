@@ -36,6 +36,8 @@
 
         <nut-button custom-color="#7232dd" @click="push"> 跳转路由 </nut-button>
 
+        <nut-button custom-color="#7232dd" @click="apis"> api请求 </nut-button>
+
         <nut-image-preview
             :show="showPreview"
             :images="imgData"
@@ -60,8 +62,8 @@
 import { ref } from 'vue';
 import { useRouter } from 'uni-mini-router';
 import coas from '@/static/logo.png';
-
 import { useAppStore } from '@/state/app';
+import { getlist } from '@/api/common/user/user';
 
 const router = useRouter();
 const usetsto = useAppStore();
@@ -87,6 +89,13 @@ const imgData = [
 function push() {
     router.push({
         name: 'wode',
+    });
+}
+
+// 请求api
+function apis() {
+    getlist({ id: 1 }).then((res) => {
+        console.log(res, '我点击了');
     });
 }
 </script>

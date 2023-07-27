@@ -13,19 +13,24 @@
 -   其他平台暂未测试,后续会增加;
 -   如发现问题或建议可在评论区留言, 看到会及时处理;
 -   如有需求亦可在评论区留言,或在此项目基础上增加;
--   [代码规范 husky、prettier、eslint、lint-staged、stylelint 的作用和使用]
+-   代码规范 husky、prettier、eslint、lint-staged、stylelint 的作用和使用
 
 ## 特性
 
 -   **最新技术栈**：使用 Vue3/Vite4/pinia ,TypeScript 等前端前沿技术开发;
--   **最新技术栈**(https://www.uniapp-nutui.tech/guide/quick-start.html)：uniapp-nutui 组件库，基于Taro版NutUi 4.x版本修改而来，适配了uni-app, 使用 Vue 技术栈开发小程序应用，开箱即用，拥有丰富的业务组件。
--   **Tailwind CSS**(https://www.tailwindcss.cn/docs/installation) Tailwind CSS 是一个功能类优先的 CSS 框架，它集成了诸如 flex, pt-4, text-center 和 rotate-90 这样的的类，它们能直接在脚本标记语言中组合起来，构建出任何设计。
+-   **uniapp-nutui**(https://www.uniapp-nutui.tech/guide/quick-start.html):
+    uniapp-nutui 组件库，基于Taro版NutUi 4.x版本修改而来，适配了uni-app, 使用 Vue 技术栈开发小程序应用，开箱即用，拥有丰富的业务组件。
+-   **Tailwind CSS**(https://www.tailwindcss.cn/docs/installation):
+    Tailwind CSS 是一个功能类优先的 CSS 框架，它集成了诸如 flex, pt-4, text-center 和 rotate-90 这样的的类，它们能直接在脚本标记语言中组合起来，构建出任何设计。
 -   **Eslint/Prettier/stylelint**: 规范代码样式格式,统一编码;
 -   **husky**: 提交代码钩子
--   **路由拦截**: [uni-mini-router](https://gitee.com/fant-mini/uni-mini-router),类似Vue Router的API和功能,在uni-app中进行路由跳转、传参、拦截等常用操作;
+-   **路由拦截**:
+    [uni-mini-router](https://gitee.com/fant-mini/uni-mini-router),类似Vue Router的API和功能,在uni-app中进行路由跳转、传参、拦截等常用操作;
 -   **请求拦截**: 等待接入;
 
 ## 目录结构
+
+```shell
 
 ├─ src
 │ ├─static # 静态公共文件
@@ -72,8 +77,7 @@
 ├─ tsconfig.json
 └─ vite.config.ts
 
-````
-
+```
 
 ## 安装使用
 
@@ -81,7 +85,7 @@
 
 ```bash
 npm install
-````
+```
 
 -   运行
 
@@ -92,15 +96,16 @@ npm dev:h5
 
 -   打包
 
-````bash
+```bash
 # 其他端请查看 package.json script
 npm build:h5
+```
 
 -   代码提交命令
 
 ```bash
 npm run cz
-````
+```
 
 ### 提交类型
 

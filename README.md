@@ -2,7 +2,7 @@
 
 ## 简介
 
--   **uni-app Vue3 Vite4 pinia2 TypeScript 基础框架**
+-   **uni-app Vue3 Vite4 pinia2 TypeScript Tailwindcss 基础框架**
 -   cli 创建的 Vue3/Vite 项目 与 使用 HBuilderX 导入插件 的包有差异,请直接访问 [开源地址](https://gitee.com/zhou-yankai/uniapp-vite-vue3-pinia-ts)
 
 ### 说明
@@ -26,13 +26,15 @@
 -   **husky**: 提交代码钩子
 -   **路由拦截**:
     [uni-mini-router](https://gitee.com/fant-mini/uni-mini-router),类似Vue Router的API和功能,在uni-app中进行路由跳转、传参、拦截等常用操作;
--   **请求拦截**: 等待接入;
+-   **请求拦截**:
+    [luch-request](https://www.quanzhan.co/luch-request/handbook),luch-request 是一个基于Promise 开发的uni-app跨平台、项目级别的请求库，它有更小的体积，易用的api，方便简单的自定义能力。
 
 ## 目录结构
 
 ```shell
 
 ├─ src
+│ ├─api # 接口文件目录
 │ ├─static # 静态公共文件
 │ │ ├─ images # 图片
 │ │ │ ├─.png
@@ -58,7 +60,7 @@
 │ │
 │ └─utils # 工具类
 │ ├─ cache # 缓存相关目录
-│ └─ ...
+│ └─ request.ts #api请求拦截
 │
 ├─ .env
 ├─ .env.development
@@ -101,7 +103,7 @@ npm dev:h5
 npm build:h5
 ```
 
--   代码提交命令
+-   npm run cz提交命令 先git add. 后在使用这个命令
 
 ```bash
 npm run cz

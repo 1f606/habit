@@ -1,8 +1,10 @@
 import Request from 'luch-request'; //npm下载引入luch-request
 
+// const api = import.meta.env.VITE_BASE_URL;
+
 // import qs from 'qs'
 const http = new Request({
-    baseURL: 'https://baidu.com', //设置请求的base url
+    baseURL: import.meta.env.VITE_BASE_URL, //设置请求的base url
     timeout: 30000, //超时时长30秒,
     header: {
         'Content-Type': 'multipart/form-data;application/json;charset=UTF-8;',

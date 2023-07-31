@@ -43,7 +43,7 @@
 │ │ └─ ...
 │ │
 │ ├─components # 组件目录
-│ │
+│ ├─enum # 枚举
 │ ├─pages # 页面
 │ │ ├─ index
 │ │ │ └─index.vue
@@ -61,7 +61,7 @@
 │ └─utils # 工具类
 │ ├─ cache # 缓存相关目录
 │ └─ request.ts #api请求拦截
-│
+│ └─ layout #公共的方法
 ├─ .env
 ├─ .env.development
 ├─ .env.production

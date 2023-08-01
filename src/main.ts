@@ -1,5 +1,5 @@
 import { createSSRApp } from 'vue';
-import 'uniapp-nutui/styles/index.scss';
+import '@vingogo/uni-ui/lib/style.css';
 import App from './App.vue';
 import pinia from './state/index'; //pinia
 import router from './router'; //路由

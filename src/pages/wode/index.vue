@@ -1,165 +1,121 @@
 <template>
-    <nut-form
-        ref="ruleForm"
-        :model-value="formData"
-        :rules="{
-            name: [
-                {
-                    message: 'name 至少两个字符',
-                    validator: nameLengthValidator,
-                },
-            ],
-        }"
-    >
-        <nut-form-item
-            label="姓名"
-            prop="name"
-            required
-            :rules="[{ required: true, message: '请填写姓名' }]"
-        >
-            <nut-input
-                v-model="formData.name"
-                class="nut-input-text"
-                placeholder="请输入姓名，blur 事件校验"
-                type="text"
-                @blur="customBlurValidate('name')"
-            />
-        </nut-form-item>
-        <nut-form-item
-            label="年龄"
-            prop="age"
-            required
-            :rules="[
-                { required: true, message: '请填写年龄' },
-                { validator: customValidator, message: '必须输入数字' },
-                {
-                    validator: customRulePropValidator,
-                    message: '必须输入数字',
-                    reg: /^\d+$/,
-                },
-                {
-                    regex: /^(\d{1,2}|1\d{2}|200)$/,
-                    message: '必须输入0-200区间',
-                },
-            ]"
-        >
-            <nut-input
-                v-model="formData.age"
-                class="nut-input-text"
-                placeholder="请输入年龄，必须数字且0-200区间"
-                type="text"
-            />
-        </nut-form-item>
-        <nut-form-item
-            label="联系电话"
-            prop="tel"
-            required
-            :rules="[
-                { required: true, message: '请填写联系电话' },
-                { validator: asyncValidator, message: '电话格式不正确' },
-            ]"
-        >
-            <nut-input
-                v-model="formData.tel"
-                class="nut-input-text"
-                placeholder="请输入联系电话，异步校验电话格式"
-                type="text"
-            />
-        </nut-form-item>
-        <nut-form-item
-            label="地址"
-            prop="address"
-            required
-            :rules="[{ required: true, message: '请填写地址' }]"
-        >
-            <nut-input
-                v-model="formData.address"
-                class="nut-input-text"
-                placeholder="请输入地址"
-                type="text"
-            />
-        </nut-form-item>
-        <nut-cell>
-            <nut-button
-                type="primary"
-                size="small"
-                style="margin-right: 10px"
-                @click="submit"
-            >
-                提交
-            </nut-button>
-            <nut-button size="small" @click="reset"> 重置提示状态 </nut-button>
-        </nut-cell>
-    </nut-form>
+    <vin-cell title="基础弹框" @click="baseClick"></vin-cell>
+    <vin-dialog
+        v-model:visible="visible1"
+        title="基础弹框"
+        content="这是基础弹框。"
+        @cancel="onCancel"
+        @ok="onOk"
+    />
+
+    <vin-cell title="无标题弹框" @click="noTitleClick"></vin-cell>
+    <vin-dialog
+        v-model:visible="visible2"
+        content="这是无标题弹框。"
+        @cancel="onCancel"
+        @ok="onOk"
+    />
+
+    <vin-cell title="提示弹框" @click="tipsClick"></vin-cell>
+    <vin-dialog
+        v-model:visible="visible3"
+        no-cancel-btn
+        title="温馨提示"
+        content="这是提示弹框。"
+        @cancel="onCancel"
+        @ok="onOk"
+    />
+
+    <vin-cell title="底部按钮 垂直调用" @click="verticalClick"></vin-cell>
+    <vin-dialog
+        v-model:visible="visible5"
+        footer-direction="vertical"
+        teleport="#app"
+        title="温馨提示"
+        content="这是提示弹框。"
+    />
+
+    <vin-cell title="异步关闭" @click="componentClick"></vin-cell>
+    <vin-dialog
+        title="异步关闭"
+        :content="closeContent"
+        :visible="visible4"
+        @cancel="onCancel"
+        @ok="onOkAsync"
+    />
 </template>
+
 <script lang="ts">
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 export default {
     setup() {
-        const formData = reactive({
-            name: '',
-            age: '',
-            tel: '',
-            address: '',
-        });
-        const validate = (item: any) => {
-            console.log(item);
-        };
-        const ruleForm = ref<any>(null);
+        const visible1 = ref(false);
+        const visible2 = ref(false);
+        const visible3 = ref(false);
+        const visible4 = ref(false);
+        const visible5 = ref(false);
+        const closeContent = ref('');
+        const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
+        const countDown = (second: number) => `倒计时 ${second} 秒`;
 
-        const submit = () => {
-            ruleForm.value.validate().then(({ valid, errors }: any) => {
-                if (valid) {
-                    console.log('success', formData);
-                } else {
-                    console.log('error submit!!', errors);
-                }
-            });
+        const onCancel = () => {
+            console.log('event cancel');
         };
-        const reset = () => {
-            ruleForm.value.reset();
+        const onOk = () => {
+            console.log('event ok');
         };
-        // 失去焦点校验
-        const customBlurValidate = (prop: string) => {
-            ruleForm.value.validate(prop).then(({ valid, errors }: any) => {
-                if (valid) {
-                    console.log('success', formData);
-                } else {
-                    console.log('error submit!!', errors);
-                }
-            });
+        const onOkAsync = () => {
+            sleep()
+                .then(() => {
+                    closeContent.value = countDown(2);
+                    return sleep();
+                })
+                .then(() => {
+                    closeContent.value = countDown(1);
+                    return sleep();
+                })
+                .then(() => {
+                    closeContent.value = countDown(0);
+                })
+                .then(() => {
+                    visible4.value = false;
+                });
         };
-        // 函数校验
-        const customValidator = (val: string) => /^\d+$/.test(val);
-        const customRulePropValidator = (val: string, rule: any) => {
-            return (rule?.reg as RegExp).test(val);
+
+        const baseClick = (): void => {
+            visible1.value = true;
         };
-        const nameLengthValidator = (val: string) => val?.length >= 2;
-        // Promise 异步校验
-        const asyncValidator = (val: string) => {
-            return new Promise((resolve) => {
-                console.log('模拟异步验证中...');
-                setTimeout(() => {
-                    console.log('验证完成');
-                    resolve(
-                        /^400(-?)[0-9]{7}$|^1\d{10}$|^0[0-9]{2,3}-[0-9]{7,8}$/.test(
-                            val,
-                        ),
-                    );
-                }, 1000);
-            });
+        const noTitleClick = () => {
+            visible2.value = true;
         };
+        const tipsClick = () => {
+            visible3.value = true;
+        };
+
+        const componentClick = () => {
+            closeContent.value = `点击确定时3s后关闭`;
+            visible4.value = true;
+        };
+
+        const verticalClick = () => {
+            visible5.value = true;
+        };
+
         return {
-            ruleForm,
-            formData,
-            validate,
-            customValidator,
-            customRulePropValidator,
-            nameLengthValidator,
-            asyncValidator,
-            customBlurValidate,
-            submit,
-            reset,
+            visible1,
+            visible2,
+            visible3,
+            visible4,
+            visible5,
+            onCancel,
+            onOk,
+            closeContent,
+            onOkAsync,
+            baseClick,
+            noTitleClick,
+            componentClick,
+            tipsClick,
+            verticalClick,
         };
     },
 };

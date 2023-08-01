@@ -20,9 +20,9 @@
 
     </view> -->
 
-        <nut-icon name="dongdong" custom-color="#fa2c19" />
-        <nut-icon name="dongdong" custom-color="#64b578" />
-        <nut-icon name="JD" custom-color="#fa2c19" />
+        <vin-icon name="dongdong" color="#fa2c19" />
+        <vin-icon name="dongdong" color="#64b578" />
+        <vin-icon name="JD" color="#fa2c19" />
 
         <view class="text-area">
             <text class="title font-mono text-rose-500 text-2xl">
@@ -30,19 +30,19 @@
             </text>
         </view>
 
-        <nut-button custom-color="#7232dd" @click="usetsto.addnum">
+        <vin-button color="#7232dd" @click="usetsto.addnum">
             pinia++
-        </nut-button>
+        </vin-button>
 
-        <nut-button custom-color="#7232dd" @click="push"> 跳转路由 </nut-button>
+        <vin-button color="#7232dd" @click="push"> 跳转路由 </vin-button>
 
-        <nut-button custom-color="#7232dd" @click="apis"> api请求 </nut-button>
+        <vin-button color="#7232dd" @click="apis"> api请求 </vin-button>
 
-        <nut-image-preview
+        <!-- <vin-image-preview
             :show="showPreview"
             :images="imgData"
             @close="showPreview = false"
-        />
+        /> -->
 
         <view class="text-area my-1">
             <text class="title font-mono text-rose-500 text-1xl">
@@ -61,9 +61,11 @@
 <script setup lang="ts" name="index">
 import { ref } from 'vue';
 import { useRouter } from 'uni-mini-router';
-import coas from '@/static/logo.png';
+// import coas from '@/static/logo.png';
 import { useAppStore } from '@/state/app';
 import { getlist } from '@/api/common/user/user';
+
+// import vinButton from '@vingogo/uni-ui/lib/components/button/index.vue';
 
 const router = useRouter();
 const usetsto = useAppStore();
@@ -79,11 +81,11 @@ const showPreview = ref(false);
 
 // let name = 1321;
 
-const imgData = [
-    {
-        src: coas,
-    },
-];
+// const imgData = [
+//     {
+//         src: coas,
+//     },
+// ];
 
 // 跳转路由
 function push() {
@@ -119,7 +121,7 @@ function apis() {
     justify-content: center;
 }
 
-:deep(.nut-image-preview-custom-pop) {
+:deep(.vin-image-preview-custom-pop) {
     display: flex;
     align-items: center;
     width: 100%;

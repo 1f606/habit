@@ -2,8 +2,8 @@
 	"easycom": {
 		"autoscan": true,
 		"custom": {
-		  "^nut-(.*)?-(.*)": "uniapp-nutui/components/$1$2/$1$2.vue",
-		  "^nut-(.*)": "uniapp-nutui/components/$1/$1.vue"
+		//   "^nut-(.*)?-(.*)": "uniapp-nutui/components/$1$2/$1$2.vue",
+		  "^vin-(.*)": "@vingogo/uni-ui/lib/components/$1/index.vue"
 		}
 	},
 	// 在pages.json中为页面路由指定name字段后，即可以使用name跳转

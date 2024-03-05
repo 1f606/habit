@@ -11,6 +11,8 @@
             </text>
         </view>
 
+        <view>131</view>
+
         <!-- <view>
       <text class="font-mono text-purple-500 ">
            路由  uni-mini-router
@@ -34,7 +36,7 @@
             pinia++
         </vin-button>
 
-        <vin-button color="#7232dd" @click="push"> 跳转路由 </vin-button>
+        <vin-button color="#7232dd" @click="push"> 跳转路由1 </vin-button>
 
         <vin-button color="#7232dd" @click="apis"> api请求 </vin-button>
 
@@ -59,7 +61,7 @@
 </template>
 
 <script setup lang="ts" name="index">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'uni-mini-router';
 // import coas from '@/static/logo.png';
 import { useAppStore } from '@/state/app';
@@ -74,6 +76,10 @@ let env = import.meta.env.VITE_APP_ENV;
 let api = import.meta.env.VITE_BASE_URL;
 
 const title = ref('Tailwind CSS');
+
+onMounted(() => {
+    console.log('我初始化进来');
+});
 
 const showPreview = ref(false);
 
@@ -100,6 +106,40 @@ function apis() {
         console.log(res, '我点击了');
     });
 }
+
+let nums = [2, 5, 5, 5, 11],
+    target = 10;
+
+let map = {};
+let xins = [];
+for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+
+    if (map[target - n] >= 0) {
+        xins = [map[target - n], i];
+    } else {
+        map[n] = i; //use map to store the value and index position
+    }
+}
+console.log(map, xins, '巴啦啦');
+
+// if (ransomNote == xin) {
+//     return true;
+// } else {
+//     return false;
+// }
+
+// let xin = '';
+// tcc.forEach((item) => {
+//     console.log(item, '我很无语啊');
+//     xin += item.name;
+// });
+
+// if (xin == ransomNote) {
+//     return true;
+// } else {
+//     return false;
+// }
 </script>
 
 <style>

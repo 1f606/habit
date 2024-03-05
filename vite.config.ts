@@ -3,19 +3,19 @@ import { resolve } from 'path';
 import uni from '@dcloudio/vite-plugin-uni';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
-import rems from 'postcss-rem-to-responsive-pixel';
+import rem2px from 'postcss-rem-to-responsive-pixel';
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from 'weapp-tailwindcss/vite';
 import TransformPages from 'uni-read-pages-vite';
 import eslintPlugin from 'vite-plugin-eslint'; //eslint自动检查插件
 
 const isH5 = process.env.UNI_PLATFORM === 'h5';
-const isApp = process.env.UNI_PLATFORM === 'app-plus';
+const isApp = process.env.UNI_PLATFORM === 'app';
 const WeappTailwindcssDisabled = isH5 || isApp;
 
 const postcssPlugins = [tailwindcss(), autoprefixer()];
 if (!WeappTailwindcssDisabled) {
     postcssPlugins.push(
-        rems({
+        rem2px({
             // 32 意味着 1rem = 32rpx
             rootValue: 32,
             // 默认所有属性都转化

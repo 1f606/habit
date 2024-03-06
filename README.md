@@ -19,7 +19,7 @@
 
 -   **最新技术栈**：使用 Vue3/Vite4/pinia ,TypeScript 等前端前沿技术开发;
 -   **vue3组件库**:
-    [Vin UI](https://vingogo.cn/docs/guide/quickstart.html) 组件库，基于Taro版NutUi 4.x版本修改而来，适配了uni-app, 使用 Vue 技术栈开发小程序应用，开箱即用，拥有丰富的业务组件。
+    [wot-design-uni](https://wot-design-uni.gitee.io) 组件库，wot-design-uni组件库基于vue3+Typescript构建，参照wot desing的设计规范进行开发，旨在给开发者提供统一的UI交互，同时提高研发的开发效率。
 -   **Tailwind CSS**:
     [Tailwind CSS](https://www.tailwindcss.cn/docs/installation) 是一个功能类优先的 CSS 框架，它集成了诸如 flex, pt-4, text-center 和 rotate-90 这样的的类，它们能直接在脚本标记语言中组合起来，构建出任何设计。
 -   **Eslint/Prettier/stylelint**: 规范代码样式格式,统一编码;

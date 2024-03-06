@@ -11,8 +11,6 @@
             </text>
         </view>
 
-        <view>131</view>
-
         <!-- <view>
       <text class="font-mono text-purple-500 ">
            路由  uni-mini-router
@@ -22,9 +20,7 @@
 
     </view> -->
 
-        <vin-icon name="dongdong" color="#fa2c19" />
-        <vin-icon name="dongdong" color="#64b578" />
-        <vin-icon name="JD" color="#fa2c19" />
+        <wd-icon name="search" size="20px"></wd-icon>
 
         <view class="text-area">
             <text class="title font-mono text-rose-500 text-2xl">
@@ -32,13 +28,23 @@
             </text>
         </view>
 
-        <vin-button color="#7232dd" @click="usetsto.addnum">
-            pinia++
-        </vin-button>
-
-        <vin-button color="#7232dd" @click="push"> 跳转路由1 </vin-button>
-
-        <vin-button color="#7232dd" @click="apis"> api请求 </vin-button>
+        <view class="my-1">
+            <wd-button class="1231" color="#7232dd" @click="usetsto.addnum">
+                pinia++
+            </wd-button>
+        </view>
+        <view class="my-1">
+            <!-- <tn-button color="#7232dd" > 跳转路由 </tn-button> -->
+            <wd-button type="success" @click="push">跳转路由</wd-button>
+        </view>
+        <view class="my-1">
+            <!-- <tn-button color="#7232dd" "> 弹出层 </tn-button> -->
+            <wd-button type="success" @click="pushs">弹出层</wd-button>
+        </view>
+        <view class="my-1">
+            <!-- <tn-button color="#7232dd" @click="apis">  </tn-button> -->
+            <wd-button type="success" @click="apis">api请求</wd-button>
+        </view>
 
         <!-- <vin-image-preview
             :show="showPreview"
@@ -57,17 +63,20 @@
                 {{ api }}
             </text>
         </view>
+
+        <wd-button label="按钮"></wd-button>
+
+        <!-- <tn-button type="primary">按钮</tn-button> -->
+        <!-- <TnTitle title="图鸟UI" mode="vLine" /> -->
     </view>
 </template>
 
 <script setup lang="ts" name="index">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'uni-mini-router';
 // import coas from '@/static/logo.png';
 import { useAppStore } from '@/state/app';
 import { getlist } from '@/api/common/user/user';
-
-// import vinButton from '@vingogo/uni-ui/lib/components/button/index.vue';
 
 const router = useRouter();
 const usetsto = useAppStore();
@@ -76,10 +85,6 @@ let env = import.meta.env.VITE_APP_ENV;
 let api = import.meta.env.VITE_BASE_URL;
 
 const title = ref('Tailwind CSS');
-
-onMounted(() => {
-    console.log('我初始化进来');
-});
 
 const showPreview = ref(false);
 
@@ -95,8 +100,17 @@ const showPreview = ref(false);
 
 // 跳转路由
 function push() {
+    console.log('我点击跳转路由了？');
     router.push({
         name: 'wode',
+    });
+}
+
+// 跳转路由
+function pushs() {
+    console.log('我点击跳转路由了？');
+    router.push({
+        name: 'poput',
     });
 }
 
@@ -106,40 +120,6 @@ function apis() {
         console.log(res, '我点击了');
     });
 }
-
-let nums = [2, 5, 5, 5, 11],
-    target = 10;
-
-let map = {};
-let xins = [];
-for (let i = 0; i < nums.length; i++) {
-    let n = nums[i];
-
-    if (map[target - n] >= 0) {
-        xins = [map[target - n], i];
-    } else {
-        map[n] = i; //use map to store the value and index position
-    }
-}
-console.log(map, xins, '巴啦啦');
-
-// if (ransomNote == xin) {
-//     return true;
-// } else {
-//     return false;
-// }
-
-// let xin = '';
-// tcc.forEach((item) => {
-//     console.log(item, '我很无语啊');
-//     xin += item.name;
-// });
-
-// if (xin == ransomNote) {
-//     return true;
-// } else {
-//     return false;
-// }
 </script>
 
 <style>

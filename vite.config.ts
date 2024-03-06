@@ -78,10 +78,10 @@ export default defineConfig({
         postcss: {
             plugins: postcssPlugins,
         },
-        preprocessorOptions: {
-            scss: {
-                additionalData: '@import "uniapp-nutui/styles/variables.scss";',
-            },
-        },
+        // preprocessorOptions: {
+        //     scss: {
+        //         additionalData: '@import "uniapp-nutui/styles/variables.scss";',
+        //     },
+        // },
     },
 });

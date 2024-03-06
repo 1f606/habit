@@ -3,7 +3,13 @@
         <home v-if="tabbar === 'home'"></home>
         <wode v-if="tabbar === 'wode'"></wode>
         <poput v-if="tabbar === 'poput'"></poput>
-        <wd-tabbar v-model="tabbar" shape="round" fixed>
+        <wd-tabbar
+            v-model="tabbar"
+            fixed
+            bordered
+            safe-area-inset-bottom
+            shape="round"
+        >
             <wd-tabbar-item
                 title="首页"
                 is-dot
@@ -44,3 +50,12 @@ onMounted(() => {
     console.log(router, '我回去到mounted了');
 });
 </script>
+
+<style lang="scss" scoped>
+:deep(.wd-tabbar) {
+    /* stylelint-disable-next-line selector-class-pattern */
+    .wd-badge__content {
+        border: none !important;
+    }
+}
+</style>

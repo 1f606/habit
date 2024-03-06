@@ -2,16 +2,14 @@
 import type { Router } from 'uni-mini-router';
 import { useAuthStore } from '@/state/modules/auth';
 // 设置一些白名单
-const whiteList = ['login', 'wode'];
+const whiteList = ['login', 'wode', 'loading'];
 
 export function userRouternext(router: Router) {
     router.beforeEach((to, from, next) => {
         // console.log('我是否进来路由前置收尾了');
         // next入参 false 以取消导航
         const authStore = useAuthStore();
-
         // console.log('我要进来么啊，1');
-
         // 判断是否需要登录
         if (authStore.isLogin) {
             // 如果登录了就放行
@@ -25,7 +23,7 @@ export function userRouternext(router: Router) {
             } else {
                 // 判断不是白名单 还没有token值 直接进去登录页面页面
                 next({
-                    name: 'login',
+                    name: 'loading',
                 });
             }
         }
@@ -49,7 +47,7 @@ export function userRouternext(router: Router) {
                 // console.log('我在白名单里面');
             } else {
                 router.push({
-                    name: 'login',
+                    name: 'loading',
                     params: { ...to.query },
                 });
             }

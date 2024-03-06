@@ -62,7 +62,7 @@
         "uni-read-pages-vite": "^0.0.6",
         "vue": "^3.2.45",
         "vue-i18n": "^9.1.9",
-        "wot-design-uni": "^1.1.4"
+        "wot-design-uni": "^1.1.6"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.6.7",

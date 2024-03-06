@@ -1,88 +1,154 @@
-<!--
- * @Description: 
- * @Version: V1.0.0
- * @Author: 周艳凯 750419898@qq.com
- * @Date: 2023-07-26 14:15:07
- * @LastEditors: 周艳凯 750419898@qq.com
- * @LastEditTime: 2024-03-06 09:41:37
- * @FilePath: index.vue
- * Copyright 2024 Marvin, All Rights Reserved. 
- * 2023-07-26 14:15:07
--->
 <template>
     <div>
-        <view class="container">
-            <view v-for="index in num" :key="index" class="list-item">
-                <image
-                    src="https://img10.360buyimg.com/jmadvertisement/jfs/t1/70325/36/14954/36690/5dcd3e3bEee5006e0/aed1ccf6d5ffc764.png"
+        <wd-navbar
+            safe-area-inset-top
+            title="标题"
+            left-text="返回"
+            left-arrow
+        ></wd-navbar>
+
+        <wd-form ref="form" :model="model">
+            <wd-cell-group border>
+                <wd-input
+                    v-model="model.value1"
+                    label="校验"
+                    label-width="100px"
+                    prop="value1"
+                    clearable
+                    placeholder="正则校验"
+                    :rules="[
+                        {
+                            required: false,
+                            pattern: /\d{6}/,
+                            message: '请输入6位字符',
+                        },
+                    ]"
                 />
-                <view class="right">这是一条测试{{ index + 1 }}</view>
+                <wd-input
+                    v-model="model.value2"
+                    label="校验"
+                    label-width="100px"
+                    prop="value2"
+                    clearable
+                    placeholder="函数校验"
+                    :rules="[
+                        {
+                            required: false,
+                            validator: validatorMessage,
+                            message: '请输入正确的手机号',
+                        },
+                    ]"
+                />
+                <wd-input
+                    v-model="model.value3"
+                    label="校验"
+                    label-width="100px"
+                    prop="value3"
+                    clearable
+                    placeholder="校验函数返回错误提示"
+                    :rules="[
+                        {
+                            required: false,
+                            message: '请输入内容',
+                            validator: validator,
+                        },
+                    ]"
+                />
+                <wd-input
+                    v-model="model.value4"
+                    label="校验"
+                    label-width="100px"
+                    prop="value4"
+                    clearable
+                    placeholder="异步函数校验"
+                    :rules="[
+                        {
+                            required: false,
+                            validator: asyncValidator,
+                            message: '请输入1234',
+                        },
+                    ]"
+                />
+            </wd-cell-group>
+            <view class="footer">
+                <wd-button
+                    type="primary"
+                    size="large"
+                    block
+                    @click="handleSubmit"
+                    >提交</wd-button
+                >
             </view>
-            <wd-loadmore :state="state" @reload="loadmore" />
-        </view>
+        </wd-form>
+
+        <wd-toast />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onLoad, onReachBottom } from '@dcloudio/uni-app';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import { useToast } from 'wot-design-uni';
 
-const state = ref<string>('loading');
-const num = ref<number>(0);
-const max = ref<number>(60);
+const model = reactive<{
+    value1: string;
+    value2: string;
+    value3: string;
+    value4: string;
+}>({
+    value1: '',
+    value2: '',
+    value3: '',
+    value4: '',
+});
 
-onReachBottom(() => {
-    if (num.value === 45) {
-        state.value = 'error';
-    } else if (num.value < max.value) {
-        loadmore();
-    } else if (num.value === max.value) {
-        state.value = 'finished';
+const {
+    success: showSuccess,
+    loading: showLoading,
+    close: closeToast,
+} = useToast();
+
+const form = ref();
+
+const validatorMessage = (val: any) => {
+    return /1\d{10}/.test(val);
+};
+
+const validator = (val: any) => {
+    if (String(val).length >= 4) {
+        return Promise.resolve();
+    } else {
+        return Promise.reject('长度不得小于4');
     }
-});
+};
 
-onLoad(() => {
-    loadmore();
-});
+// 校验函数可以返回 Promise，实现异步校验
+const asyncValidator = (val: any) =>
+    new Promise((resolve) => {
+        showLoading('验证中...');
+        setTimeout(() => {
+            closeToast();
+            resolve(val === '1234');
+        }, 1000);
+    });
 
-function loadmore() {
-    setTimeout(() => {
-        num.value = num.value + 15;
-        state.value = 'loading';
-    }, 200);
+function handleSubmit() {
+    form.value
+        .validate()
+        .then(({ valid }: any) => {
+            if (valid) {
+                showSuccess({
+                    msg: '提交成功',
+                });
+            }
+        })
+        .catch((error: any) => {
+            console.log(error, 'error');
+        });
 }
 </script>
 
 <style lang="scss" scoped>
-.list-item {
-    position: relative;
-    display: flex;
-    padding: 10px 15px;
-    color: #464646;
-    background: #fff;
-}
-
-.list-item::after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: #eee;
-    content: '';
-    transform: scaleY(0.5);
-}
-
-image {
-    display: block;
-    margin-right: 15px;
-    width: 120px;
-    height: 78px;
-}
-
-.right {
-    -webkit-box-flex: 1;
-    flex: 1;
+.footer {
+    padding: 12px;
 }
 </style>

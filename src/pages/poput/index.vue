@@ -1,6 +1,11 @@
 <template>
     <div>
-        <wd-navbar title="标题" left-text="返回" left-arrow></wd-navbar>
+        <wd-navbar
+            safe-area-inset-top
+            title="标题"
+            left-text="返回"
+            left-arrow
+        ></wd-navbar>
         <div class="contain">
             <wd-picker
                 v-model="value"

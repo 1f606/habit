@@ -1,3 +1,14 @@
+<!--
+ * @Description: 
+ * @Version: V1.0.0
+ * @Author: 周艳凯 750419898@qq.com
+ * @Date: 2023-07-26 17:37:47
+ * @LastEditors: 周艳凯 750419898@qq.com
+ * @LastEditTime: 2024-03-08 17:35:45
+ * @FilePath: index.vue
+ * Copyright 2024 Marvin, All Rights Reserved. 
+ * 2023-07-26 17:37:47
+-->
 <template>
     <view class="contain">
         <view class="con">
@@ -35,7 +46,7 @@
 
 <script lang="ts" setup name="login">
 import { reactive } from 'vue';
-import { useAuthStore } from '@/state/modules/auth';
+import { useAuthStore } from '@/state/modules/user';
 import { useRouter } from 'uni-mini-router';
 const router = useRouter();
 const authStore = useAuthStore();
@@ -48,10 +59,15 @@ const form = reactive({
 
 // login登录
 function login() {
-    authStore.token = '测试';
-    router.push({
-        name: 'home',
-    });
+    authStore
+        .login()
+        .then((res) => {
+            console.log(res, 'wi使用了');
+            router.push({
+                name: 'home',
+            });
+        })
+        .catch(() => {});
 }
 </script>
 

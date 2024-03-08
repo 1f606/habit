@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 console.log('我进来loading也没了');
 import { useRouter } from 'uni-mini-router';
-import { useAuthStore } from '@/state/modules/auth';
+import { useAuthStore } from '@/state/modules/user';
 import { onMounted } from 'vue';
 const router = useRouter();
 const authStore = useAuthStore();

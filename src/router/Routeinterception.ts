@@ -1,6 +1,6 @@
 // 路由拦截
 import type { Router } from 'uni-mini-router';
-import { useAuthStore } from '@/state/modules/auth';
+import { useAuthStore } from '@/state/modules/user';
 // 设置一些白名单
 const whiteList = ['login', 'wode', 'loading'];
 

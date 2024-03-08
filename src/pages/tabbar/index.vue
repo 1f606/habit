@@ -53,6 +53,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 :deep(.wd-tabbar) {
+    z-index: 10 !important;
     /* stylelint-disable-next-line selector-class-pattern */
     .wd-badge__content {
         border: none !important;

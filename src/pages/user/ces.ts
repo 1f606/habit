@@ -45,8 +45,8 @@ function _queryList(
         return _callQueryResult([]);
     }
     let pageNo = parseInt(data.pageNo);
-    let pageSize = parseInt(data.pageSize);
-    let type = data.type || 0;
+    const pageSize = parseInt(data.pageSize);
+    const type = data.type || 0;
     if (pageNo < 0 || pageSize <= 0) {
         return _callQueryResult([]);
     }
@@ -61,7 +61,7 @@ function _queryList(
     if (pageNo == 0) {
         pageNo = 1;
     }
-    let totalPagingList = [];
+    const totalPagingList: any[] = [];
     for (let i = 0; i < listCount; i++) {
         if (!showChat) {
             const item = {
@@ -82,7 +82,7 @@ function _queryList(
             totalPagingList.push(item);
         }
     }
-    let pageNoIndex = (pageNo - 1) * pageSize;
+    const pageNoIndex = (pageNo - 1) * pageSize;
     if (pageNoIndex + pageSize <= totalPagingList.length) {
         return _callQueryResult(totalPagingList.splice(pageNoIndex, pageSize));
     } else if (pageNoIndex < totalPagingList.length) {

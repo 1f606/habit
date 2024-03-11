@@ -12,6 +12,11 @@
             <!-- 需要固定在顶部不滚动的view放在slot="top"的view中，如果需要跟着滚动，则不要设置slot="top" -->
             <!-- 注意！此处的z-tabs为独立的组件，可替换为第三方的tabs，若需要使用z-tabs，请在插件市场搜索z-tabs并引入，否则会报插件找不到的错误 -->
             <template #top>
+                <wd-navbar
+                    safe-area-inset-top
+                    title="我的"
+                    left-arrow
+                ></wd-navbar>
                 <wd-tabs v-model="tabIndex" @change="tabsChange">
                     <block v-for="item in tabList" :key="item">
                         <wd-tab :title="`标签${item}`">
@@ -20,9 +25,7 @@
                     </block>
                 </wd-tabs>
             </template>
-
             <!-- 自定义下拉刷新view(如果use-custom-refresher为true且不设置下面的slot="refresher"，此时不用获取refresherStatus，会自动使用z-paging自带的下拉刷新view) -->
-
             <!-- 注意注意注意！！字节跳动小程序中自定义下拉刷新不支持slot-scope，将导致custom-refresher无法显示 -->
             <!-- 如果是字节跳动小程序，请参照sticky-demo.vue中的写法，此处使用slot-scope是为了减少data中无关变量声明，降低依赖 -->
             <template #refresher="{ refresherStatus }">
@@ -45,30 +48,32 @@
     </view>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import request from './ces';
-import custom from '@/components/custom-refresher';
+import custom from '@/components/custom-refresher/index.vue';
 import mode from '@/components/custom-nomore/index.vue';
 import loadings from '@/components/loading/index.vue';
 import loadingss from '@/hooks/loading';
 const { loading, setLoading } = loadingss();
-const paging = ref(null);
+const paging = ref<any>(null);
 const tabIndex = ref(0);
 const tabList = ref(['测试1', '测试2', '测试3', '测试4']);
 // v-model绑定的这个变量不要在分页请求结束中自己赋值！！！
-const dataList = ref([]);
+const dataList = ref<any[]>([]);
 
 const tabsChange = (index) => {
     tabIndex.value = index;
     // 当切换tab或搜索时请调用组件的reload方法，请勿直接调用：queryList方法！！
-    paging.value.reload(true);
+    paging.value?.reload(true);
 };
 
+setLoading(true);
+
 onMounted(() => {
-    setLoading(true);
     setTimeout(() => {
         setLoading(false);
+        console.log('我非得要住宿');
     }, 3000);
 });
 
@@ -84,7 +89,7 @@ const queryList = (pageNo, pageSize) => {
     };
     request
         .queryList(params)
-        .then((res) => {
+        .then((res: any) => {
             // 将请求的结果数组传递给z-paging
             paging.value.complete(res.data.list);
         })

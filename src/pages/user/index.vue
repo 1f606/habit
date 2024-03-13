@@ -40,7 +40,7 @@
 
             <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
             <view v-for="(item, index) in dataList" :key="index" class="item">
-                <view class="item-title">{{ item.title }}</view>
+                <view class="item-title text-base">{{ item.title }}</view>
                 <view class="item-detail">{{ item.detail }}</view>
                 <view class="item-line"></view>
             </view>
@@ -61,6 +61,8 @@ const tabIndex = ref(0);
 const tabList = ref(['测试1', '测试2', '测试3', '测试4']);
 // v-model绑定的这个变量不要在分页请求结束中自己赋值！！！
 const dataList = ref<any[]>([]);
+
+console.log('\x1B[41m\x1B[37m白色文字，红色背景\x1B[0m');
 
 const tabsChange = (index) => {
     tabIndex.value = index;

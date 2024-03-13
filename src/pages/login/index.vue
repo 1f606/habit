@@ -4,7 +4,7 @@
  * @Author: 周艳凯 750419898@qq.com
  * @Date: 2023-07-26 17:37:47
  * @LastEditors: 周艳凯 750419898@qq.com
- * @LastEditTime: 2024-03-08 17:35:45
+ * @LastEditTime: 2024-03-13 10:24:49
  * @FilePath: index.vue
  * Copyright 2024 Marvin, All Rights Reserved. 
  * 2023-07-26 17:37:47
@@ -60,7 +60,7 @@ const form = reactive({
 // login登录
 function login() {
     authStore
-        .login()
+        .login(form)
         .then((res) => {
             console.log(res, 'wi使用了');
             router.push({

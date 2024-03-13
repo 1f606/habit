@@ -1,154 +1,111 @@
 <template>
-    <div>
-        <wd-navbar
-            safe-area-inset-top
-            title="标题"
-            left-text="返回"
-            left-arrow
-        ></wd-navbar>
-
-        <wd-form ref="form" :model="model">
-            <wd-cell-group border>
-                <wd-input
-                    v-model="model.value1"
-                    label="校验"
-                    label-width="100px"
-                    prop="value1"
-                    clearable
-                    placeholder="正则校验"
-                    :rules="[
-                        {
-                            required: false,
-                            pattern: /\d{6}/,
-                            message: '请输入6位字符',
-                        },
-                    ]"
-                />
-                <wd-input
-                    v-model="model.value2"
-                    label="校验"
-                    label-width="100px"
-                    prop="value2"
-                    clearable
-                    placeholder="函数校验"
-                    :rules="[
-                        {
-                            required: false,
-                            validator: validatorMessage,
-                            message: '请输入正确的手机号',
-                        },
-                    ]"
-                />
-                <wd-input
-                    v-model="model.value3"
-                    label="校验"
-                    label-width="100px"
-                    prop="value3"
-                    clearable
-                    placeholder="校验函数返回错误提示"
-                    :rules="[
-                        {
-                            required: false,
-                            message: '请输入内容',
-                            validator: validator,
-                        },
-                    ]"
-                />
-                <wd-input
-                    v-model="model.value4"
-                    label="校验"
-                    label-width="100px"
-                    prop="value4"
-                    clearable
-                    placeholder="异步函数校验"
-                    :rules="[
-                        {
-                            required: false,
-                            validator: asyncValidator,
-                            message: '请输入1234',
-                        },
-                    ]"
-                />
-            </wd-cell-group>
-            <view class="footer">
-                <wd-button
-                    type="primary"
-                    size="large"
-                    block
-                    @click="handleSubmit"
-                    >提交</wd-button
-                >
+    <view class="contain">
+        <view class="p-2">
+            <view class="top">
+                <image :src="useAuth.user.logo" />
+                <view>{{ useAuth.user.name }}</view>
+                <view>{{ useAuth.user.phone }}</view>
             </view>
-        </wd-form>
+            <view class="center">
+                <view class="cen-title">Join Premium plan with us</view>
+                <view class="flex cen-botton">
+                    <view class="price"> $ 30.00</view>
+                    <view class="cen-btns">Get Started</view>
+                </view>
+            </view>
+            <view class="list">
+                <wd-cell-group class="list" inset>
+                    <wd-cell title="我的" clickable :is-link="true" />
+                    <wd-cell title="扫一扫" clickable :is-link="true" />
+                    <wd-cell title="修改密码" clickable :is-link="true" />
+                </wd-cell-group>
+            </view>
 
-        <wd-toast />
-    </div>
+            <view class="bottom">
+                <wd-button
+                    round
+                    block
+                    type="primary"
+                    plain
+                    @click="handleLoginOut"
+                >
+                    {{ isLogin ? '退出登录' : '登录' }}
+                </wd-button>
+            </view>
+        </view>
+    </view>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-import { useToast } from 'wot-design-uni';
-
-const model = reactive<{
-    value1: string;
-    value2: string;
-    value3: string;
-    value4: string;
-}>({
-    value1: '',
-    value2: '',
-    value3: '',
-    value4: '',
-});
-
-const {
-    success: showSuccess,
-    loading: showLoading,
-    close: closeToast,
-} = useToast();
-
-const form = ref();
-
-const validatorMessage = (val: any) => {
-    return /1\d{10}/.test(val);
-};
-
-const validator = (val: any) => {
-    if (String(val).length >= 4) {
-        return Promise.resolve();
-    } else {
-        return Promise.reject('长度不得小于4');
-    }
-};
-
-// 校验函数可以返回 Promise，实现异步校验
-const asyncValidator = (val: any) =>
-    new Promise((resolve) => {
-        showLoading('验证中...');
-        setTimeout(() => {
-            closeToast();
-            resolve(val === '1234');
-        }, 1000);
-    });
-
-function handleSubmit() {
-    form.value
-        .validate()
-        .then(({ valid }: any) => {
-            if (valid) {
-                showSuccess({
-                    msg: '提交成功',
-                });
-            }
-        })
-        .catch((error: any) => {
-            console.log(error, 'error');
+import { useAuthStore } from '@/state/modules/user';
+import { storeToRefs } from 'pinia';
+import { useRouter } from 'uni-mini-router';
+const useAuth = useAuthStore();
+const router = useRouter();
+const { isLogin } = storeToRefs(useAuth);
+const { layout } = useAuth;
+// 退出登录
+function handleLoginOut() {
+    if (!isLogin.value) {
+        return router.replaceAll({
+            name: 'login',
         });
+    }
+    layout();
 }
 </script>
 
 <style lang="scss" scoped>
-.footer {
-    padding: 12px;
+.contain {
+    height: 100%;
+    background: #fafafa;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200rpx;
+    margin-bottom: 40rpx;
+
+    image {
+        margin-bottom: 25rpx;
+        width: 120rpx;
+        height: 120rpx;
+        border-radius: 50%;
+    }
+}
+
+.center {
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+    height: 224rpx;
+    border-radius: 10rpx;
+    color: #fff;
+    background: #54bcbd;
+    flex-direction: column;
+
+    .cen-botton {
+        justify-content: space-between;
+        margin-top: auto;
+
+        .price {
+            font-size: 38rpx;
+        }
+
+        .cen-btns {
+            padding: 15rpx 20rpx;
+            border-radius: 20rpx;
+            color: #54bcbd;
+            background: #fff;
+        }
+    }
+}
+
+.bottom {
+    margin-top: 100rpx;
+    width: 100%;
 }
 </style>

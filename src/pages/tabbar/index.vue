@@ -2,9 +2,9 @@
     <div class="contain h-full flex flex-col">
         <div class="content flex-1">
             <home v-if="tabbar === 'home'"></home>
-            <wode v-if="tabbar === 'wode'"></wode>
+            <wode v-if="tabbar === 'user'"></wode>
             <poput v-if="tabbar === 'poput'"></poput>
-            <user v-if="tabbar === 'user'"></user>
+            <user v-if="tabbar === 'wode'"></user>
         </div>
         <div class="tabbar">
             <wd-tabbar v-model="tabbar" fixed bordered safe-area-inset-bottom>

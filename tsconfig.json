@@ -13,6 +13,7 @@
     "strict": true,
     "noImplicitAny": false, //关闭any类型
     "isolatedModules": false,
+    "noImplicitThis": true, // 不允许使用不明确类型的this
     "removeComments": true, // 删除编译后的所有的注释
     "allowUnreachableCode": true, // 是否允许存在永远无法被执行的代码， 当设置为false即不允许存在，eslint会提示错误修复
     /* 模块解析选项 */

@@ -6,121 +6,149 @@
             left-text="返回"
             left-arrow
         ></wd-navbar>
-        <div class="contain">
-            <wd-picker
-                v-model="value"
-                :columns="columns"
-                label="多列联动"
-                :column-change="onChangeDistrict"
-                :display-format="displayFormat"
-            />
-            <div @click="closeOutside">
-                <wd-popover
-                    v-model="show"
-                    content="这是一段信息。"
-                    @change="handleChange"
+
+        <wd-form ref="form" :model="model">
+            <wd-cell-group border>
+                <wd-input
+                    v-model="model.value1"
+                    label="校验"
+                    label-width="100px"
+                    prop="value1"
+                    clearable
+                    placeholder="正则校验"
+                    :rules="[
+                        {
+                            required: false,
+                            pattern: /\d{6}/,
+                            message: '请输入6位字符',
+                        },
+                    ]"
+                />
+                <wd-input
+                    v-model="model.value2"
+                    label="校验"
+                    label-width="100px"
+                    prop="value2"
+                    clearable
+                    placeholder="函数校验"
+                    :rules="[
+                        {
+                            required: false,
+                            validator: validatorMessage,
+                            message: '请输入正确的手机号',
+                        },
+                    ]"
+                />
+                <wd-input
+                    v-model="model.value3"
+                    label="校验"
+                    label-width="100px"
+                    prop="value3"
+                    clearable
+                    placeholder="校验函数返回错误提示"
+                    :rules="[
+                        {
+                            required: false,
+                            message: '请输入内容',
+                            validator: validator,
+                        },
+                    ]"
+                />
+                <wd-input
+                    v-model="model.value4"
+                    label="校验"
+                    label-width="100px"
+                    prop="value4"
+                    clearable
+                    placeholder="异步函数校验"
+                    :rules="[
+                        {
+                            required: false,
+                            validator: asyncValidator,
+                            message: '请输入1234',
+                        },
+                    ]"
+                />
+            </wd-cell-group>
+            <view class="footer">
+                <wd-button
+                    type="primary"
+                    size="large"
+                    block
+                    @click="handleSubmit"
+                    >提交</wd-button
                 >
-                    <wd-button>点击展示</wd-button>
-                </wd-popover>
-            </div>
-            <wd-calendar
-                v-model="values"
-                label="日期选择"
-                @confirm="handleConfirm"
-            />
-            <wd-count-down :time="time" />
-        </div>
+            </view>
+        </wd-form>
+
+        <wd-toast />
     </div>
 </template>
+
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import { useToast } from 'wot-design-uni';
 
-import { useQueue } from 'wot-design-uni';
+const model = reactive<{
+    value1: string;
+    value2: string;
+    value3: string;
+    value4: string;
+}>({
+    value1: '',
+    value2: '',
+    value3: '',
+    value4: '',
+});
 
-const { closeOutside } = useQueue();
-const show = ref<boolean>(false);
+const {
+    success: showSuccess,
+    loading: showLoading,
+    close: closeToast,
+} = useToast();
 
-const district: any = {
-    '0': [
-        { label: '北京', value: '110000' },
-        { label: '广东省', value: '440000' },
-    ],
-    '110000': [{ label: '北京', value: '110100' }],
-    '440000': [
-        { label: '广州市', value: '440100' },
-        { label: '韶关市', value: '440200' },
-        { label: '深圳市', value: '440300' },
-        { label: '珠海市', value: '440400' },
-        { label: '汕头市', value: '440500' },
-    ],
-    '110100': [
-        { label: '东城区', value: '110101' },
-        { label: '西城区', value: '110102' },
-        { label: '朝阳区', value: '110105' },
-        { label: '丰台区', value: '110106' },
-        { label: '石景山区', value: '110107' },
-    ],
-    '440100': [
-        { label: '荔湾区', value: '440103' },
-        { label: '越秀区', value: '440104' },
-        { label: '海珠区', value: '440105' },
-    ],
-    '440200': [{ label: '武江区', value: '440203' }],
-    '440300': [
-        { label: '罗湖区', value: '440303' },
-        { label: '福田区', value: '440304' },
-    ],
-    '440400': [
-        { label: '香洲区', value: '440402' },
-        { label: '斗门区', value: '440403' },
-        { label: '金湾区', value: '440404' },
-    ],
-    '440500': [
-        { label: '龙湖区', value: '440507' },
-        { label: '金平区', value: '440511' },
-    ],
+const form = ref();
+
+const validatorMessage = (val: any) => {
+    return /1\d{10}/.test(val);
 };
 
-const values = ref<number[]>([]);
-function handleConfirm({ value }: any) {
-    console.log(value);
-}
-const time = ref<number>(30 * 60 * 60 * 1000);
-
-const value = ref(['110000', '110100', '110102']);
-
-const columns = ref([
-    district[0],
-    district[district[0][0].value],
-    district[district[district[0][0].value][0].value],
-]);
-
-const onChangeDistrict = (pickerView, value, columnIndex, resolve) => {
-    console.log(value, '我是vakue');
-    const item = value[columnIndex];
-    if (columnIndex === 0) {
-        pickerView.setColumnData(1, district[item.value]);
-        pickerView.setColumnData(2, district[district[item.value][0].value]);
-    } else if (columnIndex === 1) {
-        pickerView.setColumnData(2, district[item.value]);
+const validator = (val: any) => {
+    if (String(val).length >= 4) {
+        return Promise.resolve();
+    } else {
+        return Promise.reject('长度不得小于4');
     }
-    resolve();
 };
 
-const displayFormat = (items: any) => {
-    return items
-        .map((item: any) => {
-            return item.label;
+// 校验函数可以返回 Promise，实现异步校验
+const asyncValidator = (val: any) =>
+    new Promise((resolve) => {
+        showLoading('验证中...');
+        setTimeout(() => {
+            closeToast();
+            resolve(val === '1234');
+        }, 1000);
+    });
+
+function handleSubmit() {
+    form.value
+        .validate()
+        .then(({ valid }: any) => {
+            if (valid) {
+                showSuccess({
+                    msg: '提交成功',
+                });
+            }
         })
-        .join('-');
-};
-
-function handleChange({ show }: any) {
-    console.log(show);
+        .catch((error: any) => {
+            console.log(error, 'error');
+        });
 }
 </script>
+
 <style lang="scss" scoped>
-.contain {
-    padding: 40px;
+.footer {
+    padding: 12px;
 }
 </style>

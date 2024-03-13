@@ -2,7 +2,7 @@
     <view class="content">
         <image
             class="logo rounded-lg"
-            src="/static/logo.png"
+            :src="useAuth.user.logo"
             @click="showPreview = true"
         />
         <view class="text-area">
@@ -21,6 +21,22 @@
     </view> -->
 
         <wd-icon name="search" size="20px"></wd-icon>
+
+        <view class="text-area">
+            <text class="title font-mono text-rose-500 text-2xl">
+                用户名 {{ useAuth.user.name }}
+            </text>
+        </view>
+        <view class="text-area">
+            <text class="title font-mono text-rose-500 text-2xl">
+                用户密码 {{ useAuth.user.passWord }}
+            </text>
+        </view>
+        <view class="text-area">
+            <text class="title font-mono text-rose-500 text-2xl">
+                用户手机号 {{ useAuth.user.phone }}
+            </text>
+        </view>
 
         <view class="text-area">
             <text class="title font-mono text-rose-500 text-2xl">
@@ -76,10 +92,12 @@ import { ref } from 'vue';
 import { useRouter } from 'uni-mini-router';
 // import coas from '@/static/logo.png';
 import { useAppStore } from '@/state/app';
+import { useAuthStore } from '@/state/modules/user';
 import { getlist } from '@/api/common/user/user';
 
 const router = useRouter();
 const usetsto = useAppStore();
+const useAuth = useAuthStore();
 
 let env = import.meta.env.VITE_APP_ENV;
 let api = import.meta.env.VITE_BASE_URL;

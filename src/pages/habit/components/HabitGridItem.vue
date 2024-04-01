@@ -85,5 +85,3 @@ function select({ item }) {
         @select="select"
     />
 </template>
-
-<style scoped></style>

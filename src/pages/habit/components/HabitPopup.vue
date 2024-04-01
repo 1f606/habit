@@ -45,18 +45,18 @@ defineExpose({
     <wd-popup
         v-model="visible"
         custom-style="width: 100%;height: 100%;background-color: #f8f9fa;"
-        @close="handleClose"
         safe-area-inset-bottom
+        @close="handleClose"
     >
         <wd-form ref="form" :model="model">
             <wd-card title="基本信息" title-width="50px">
                 <wd-cell-group border>
                     <wd-input
+                        v-model="model.name"
                         label="名称"
                         label-width="100px"
                         prop="name"
                         clearable
-                        v-model="model.name"
                         placeholder="请输入名称"
                         :rules="[{ required: true, message: '请填写名称' }]"
                     />
@@ -73,9 +73,3 @@ defineExpose({
         </wd-form>
     </wd-popup>
 </template>
-
-<style scoped>
-.habit-popup__card {
-    background-color: #fff;
-}
-</style>

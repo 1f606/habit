@@ -3,5 +3,3 @@
 <template>
     <view>detail</view>
 </template>
-
-<style scoped></style>

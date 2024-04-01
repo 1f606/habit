@@ -23,7 +23,7 @@ onMounted(() => {
         if (authStore.isLogin) {
             // 如果登录了就放行
             router.replace({
-                name: 'home',
+                name: 'index',
             });
         } else {
             router.replace({

@@ -6,76 +6,25 @@
 			"^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue"
 		}
 	},
-	// 在pages.json中为页面路由指定name字段后，即可以使用name跳转
-	// 注意：此处定义的name字段必须全局唯一。
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages		
+	"pages": [
 		{
-			"path": "pages/loading/index",
-			"name": "loading",
-			"meta": {
-				"islogin": true
-			},
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "Tailwind"
-			}
-		},
-		{
-			"path": "pages/tabbar/index",
-			"name": "home",
-			"meta": {
-				"islogin": true
-			},
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "Tailwind"
-			}
-		},
-		{
-			"path": "pages/user/index",
-			"name": "user",
-			"meta": {
-				"islogin": true
-			},
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true,
-				"app-plus": {
-					"scrollIndicator": "none"
-				}
-			}
-		},
-		{
-			"path": "pages/wode/index",
-			"name": "wode",
-			"meta": {
-				"islogin": true
-			},
-			"style": {
-				"navigationBarTitleText": "我的"
-			}
-		},
-		{
-			"path": "pages/poput/index",
-			"name": "poput",
-			"meta": {
-				"islogin": true
-			},
-			"style": {
-				"navigationBarTitleText": "我的",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/login/index",
-			"name": "login",
+			"path": "pages/habit/index",
+			"name": "habit",
 			"meta": {
 				"islogin": false
 			},
 			"style": {
-				"navigationStyle": "custom", // 使用自定义导航栏，系统会关闭默认的原生导航栏
-				"navigationBarTitleText": "login"
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/habit/detail",
+			"name": "habit-detail",
+			"meta": {
+				"islogin": false
+			},
+			"style": {
+				"navigationBarTitleText": "详情"
 			}
 		}
 	],

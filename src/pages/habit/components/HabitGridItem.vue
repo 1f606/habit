@@ -4,13 +4,15 @@ import {
     type Habit,
     type Record,
     type RecordStatus,
-    useHabitStore,
 } from '@/state/modules/habit';
+import { useRouter } from 'uni-mini-router';
+import { useHabit } from '@/hooks/useHabit';
 
+const router = useRouter();
 const props = defineProps<{
     habit: Habit;
 }>();
-const habitStore = useHabitStore();
+const { finish, fail, deleteHabit } = useHabit();
 
 const record = computed<Record>(() => {
     const today = new Date();
@@ -51,6 +53,9 @@ const actions = ref([
     {
         name: '删除',
     },
+    {
+        name: '详情',
+    },
 ]);
 
 function close() {
@@ -62,15 +67,20 @@ function open() {
 }
 
 function select({ item }) {
-    const data = Object.assign({ name: props.habit.name }, record.value);
+    const name = props.habit.name;
     if (item.name === '完成') {
-        data.status = 'success';
-        habitStore.updateStatus(data);
+        finish({ ...record.value, name });
     } else if (item.name === '未完成') {
-        data.status = 'fail';
-        habitStore.updateStatus(data);
+        fail({ ...record.value, name });
+    } else if (item.name === '删除') {
+        deleteHabit({ name });
     } else {
-        habitStore.deleteStatus({ name: data.name });
+        router.push({
+            path: '/pages/habit/detail',
+            query: {
+                name,
+            },
+        });
     }
 }
 </script>

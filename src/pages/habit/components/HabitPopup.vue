@@ -28,6 +28,7 @@ function handleSubmit() {
                     showSuccess({
                         msg: '提交成功',
                     });
+                    visible.value = false;
                 });
             }
         })

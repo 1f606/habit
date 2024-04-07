@@ -7,6 +7,7 @@ import {
 } from '@/state/modules/habit';
 import { useRouter } from 'uni-mini-router';
 import { useHabit } from '@/hooks/useHabit';
+import { onShow } from '@dcloudio/uni-app';
 
 const router = useRouter();
 const props = defineProps<{
@@ -14,10 +15,15 @@ const props = defineProps<{
 }>();
 const { finish, fail, deleteHabit } = useHabit();
 
+const today = ref(new Date());
+
+onShow(() => {
+    today.value = new Date();
+});
+
 const record = computed<Record>(() => {
-    const today = new Date();
-    const date = today.getDate();
-    const month = today.getMonth() + 1;
+    const date = today.value.getDate();
+    const month = today.value.getMonth() + 1;
     const defaultValue: Record = {
         date,
         month,

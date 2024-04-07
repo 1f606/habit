@@ -16,12 +16,21 @@ onLoad((options) => {
     });
 });
 
-const dateObj = new Date();
-const month = ref(dateObj.getMonth() + 1);
-const date = ref(dateObj.getDate());
-dateObj.setMonth(month.value + 1);
-dateObj.setDate(0);
-const dateList = ref(new Array(dateObj.getDate()).fill(0).map((m, i) => i + 1));
+const dateObj = ref(new Date());
+const month = ref(dateObj.value.getMonth() + 1);
+const dateList = ref<Array<number>>([]);
+const loading = ref(false);
+const loadData = () => {
+    loading.value = true;
+    const tempDateObj = new Date(dateObj.value);
+    tempDateObj.setMonth(tempDateObj.getMonth() + 1);
+    tempDateObj.setDate(0);
+    dateList.value = new Array(tempDateObj.getDate())
+        .fill(0)
+        .map((m, i) => i + 1);
+    loading.value = false;
+};
+loadData();
 
 function classObj(date) {
     const status = getRecordStatus({
@@ -33,11 +42,6 @@ function classObj(date) {
         success: 'finish',
         fail: 'fail',
     }[status];
-}
-
-function updateStatus(v) {
-    date.value = v;
-    open();
 }
 
 const actionSheetVisible = ref(false);
@@ -58,18 +62,62 @@ function open() {
     actionSheetVisible.value = true;
 }
 
+const date = ref(null);
+
+function updateStatus(v) {
+    date.value = v;
+    open();
+}
+
 function select({ item }) {
     const name = habit.value.name;
     if (item.name === '完成') {
-        finish({ month, date: date.value, name });
+        finish({ month: month.value, date: date.value, name });
     } else if (item.name === '未完成') {
-        fail({ month, date: date.value, name });
+        fail({ month: month.value, date: date.value, name });
     }
 }
+
+const swiping = ref(false);
+let state = {};
+const touchmove = (e) => {
+    state.currentX = e.touches[0].clientX;
+};
+const touchstart = (e) => {
+    if (loading.value || swiping.value) return;
+    swiping.value = true;
+    state.startX = e.touches[0].clientX;
+};
+const touchend = () => {
+    const diff = state.currentX - state.startX;
+    if (Math.abs(diff) > 10 && !isNaN(diff)) {
+        if (diff < 0) {
+            updateDateObj(true);
+        } else {
+            updateDateObj(false);
+        }
+        loadData();
+    }
+    swiping.value = false;
+    state = {};
+
+    function updateDateObj(isNext) {
+        const diff = isNext ? 1 : -1;
+        dateObj.value.setMonth(dateObj.value.getMonth() + diff);
+        month.value = dateObj.value.getMonth() + 1;
+    }
+};
 </script>
 
 <template>
-    <view>
+    <view
+        id="wrapper"
+        class="h-full"
+        @touchstart="touchstart"
+        @touchmove="touchmove"
+        @touchend="touchend"
+    >
+        <view class="text-2xl text-center">{{ month }}月</view>
         <view class="calendar-wrapper">
             <view
                 v-for="m in dateList"

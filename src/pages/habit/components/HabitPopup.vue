@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onBeforeUnmount } from 'vue';
 import { useToast } from 'wot-design-uni';
 import { useHabitStore } from '@/state/modules/habit';
 
@@ -10,8 +10,12 @@ const visible = ref(false);
 
 function handleClose() {}
 
-function show() {
-    visible.value = true;
+function hide() {
+    visible.value = false;
+}
+
+function toggle() {
+    visible.value = !visible.value;
 }
 
 const form = ref(null);
@@ -37,8 +41,24 @@ function handleSubmit() {
         });
 }
 
+// #ifdef H5
+function handlePopstate() {
+    if (visible.value) {
+        hide();
+    } else {
+        window.history.go(-2);
+    }
+}
+
+window.addEventListener('popstate', handlePopstate, false);
+window.history.pushState(null, null, document.URL);
+
+onBeforeUnmount(() => {
+    window.removeEventListener('popstate', handlePopstate);
+});
+// #endif
 defineExpose({
-    show,
+    toggle,
 });
 </script>
 

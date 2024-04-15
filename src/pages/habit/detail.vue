@@ -16,6 +16,15 @@ onLoad((options) => {
     });
 });
 
+const todayDateObj = ref(new Date());
+
+function isToday(date, month) {
+    return (
+        month === todayDateObj.value.getMonth() + 1 &&
+        todayDateObj.value.getDate() === date
+    );
+}
+
 const dateObj = ref(new Date());
 const month = ref(dateObj.value.getMonth() + 1);
 const dateList = ref<Array<number>>([]);
@@ -32,16 +41,18 @@ const loadData = () => {
 };
 loadData();
 
-function classObj(date) {
+function classList(date) {
     const status = getRecordStatus({
         name: habit.value.name,
         month: month.value,
         date,
     });
-    return {
-        success: 'finish',
-        fail: 'fail',
-    }[status];
+    return (
+        ({
+            success: 'finish',
+            fail: 'fail',
+        }[status] || '') + (isToday(date, month.value) ? ' date--today' : '')
+    );
 }
 
 const actionSheetVisible = ref(false);
@@ -122,7 +133,7 @@ const touchend = () => {
             <view
                 v-for="m in dateList"
                 :key="m"
-                :class="['date', classObj(m)]"
+                :class="['date', classList(m)]"
                 @click="updateStatus(m)"
                 >{{ m }}
             </view>
@@ -159,5 +170,19 @@ const touchend = () => {
 
 .date.fail {
     background-color: #f6f6f7;
+}
+
+.date.date--today {
+    position: relative;
+}
+
+.date.date--today::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #4d80f0;
 }
 </style>

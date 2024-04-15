@@ -26,7 +26,7 @@ const habitStore = useHabitStore();
 const habitPopup = ref(null);
 
 function showHabitPopup() {
-    habitPopup.value?.show();
+    habitPopup.value?.toggle();
 }
 </script>
 

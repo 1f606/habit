@@ -21,7 +21,7 @@
 
 <script lang="ts">
 export default {
-    name: 'wd-fab',
+    name: 'FloatBtn',
     options: {
         virtualHost: true,
         addGlobalClass: true,

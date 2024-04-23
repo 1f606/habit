@@ -41,6 +41,16 @@ const loadData = () => {
 };
 loadData();
 
+const placeholderList = ref([]);
+const initPlaceholder = () => {
+    const date = new Date(dateObj.value);
+    date.setDate(1);
+    const day = date.getDay();
+    const num = day === 0 ? 6 : day - 1;
+    placeholderList.value = new Array(num).fill(0);
+};
+initPlaceholder();
+
 function classList(date) {
     const status = getRecordStatus({
         name: habit.value.name,
@@ -116,6 +126,7 @@ const touchend = () => {
         const diff = isNext ? 1 : -1;
         dateObj.value.setMonth(dateObj.value.getMonth() + diff);
         month.value = dateObj.value.getMonth() + 1;
+        initPlaceholder();
     }
 };
 </script>
@@ -128,8 +139,22 @@ const touchend = () => {
         @touchmove="touchmove"
         @touchend="touchend"
     >
+        <view class="header">
+            <text>Mon</text>
+            <text>Tue</text>
+            <text>Wed</text>
+            <text>Thur</text>
+            <text>Fri</text>
+            <text>Sat</text>
+            <text>Sun</text>
+        </view>
         <view class="text-2xl text-center">{{ month }}月</view>
         <view class="calendar-wrapper">
+            <view
+                v-for="(m, i) in placeholderList"
+                :key="i"
+                class="date"
+            ></view>
             <view
                 v-for="m in dateList"
                 :key="m"
@@ -149,6 +174,15 @@ const touchend = () => {
 </template>
 
 <style scoped>
+.header {
+    display: flex;
+}
+
+.header uni-text {
+    flex: 1;
+    text-align: center;
+}
+
 .calendar-wrapper {
     display: flex;
     flex-wrap: wrap;

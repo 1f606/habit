@@ -21,6 +21,7 @@ function toggle() {
 const form = ref(null);
 const model = ref({
     name: '',
+    isDayLong: true,
 });
 
 function handleSubmit() {
@@ -28,12 +29,17 @@ function handleSubmit() {
         ?.validate()
         .then(({ valid }) => {
             if (valid) {
-                habitStore.create(model.value.name).then(() => {
-                    showSuccess({
-                        msg: '提交成功',
+                habitStore
+                    .create({
+                        name: model.value.name,
+                        isDayLong: model.value.isDayLong,
+                    })
+                    .then(() => {
+                        showSuccess({
+                            msg: '提交成功',
+                        });
+                        visible.value = false;
                     });
-                    visible.value = false;
-                });
             }
         })
         .catch((error) => {
@@ -82,6 +88,19 @@ defineExpose({
                         :rules="[{ required: true, message: '请填写名称' }]"
                     />
                 </wd-cell-group>
+                <wd-cell-group border>
+                    <view class="is-cell">
+                        <text class="label">按日划分</text>
+                        <wd-radio-group
+                            v-model="model.isDayLong"
+                            inline
+                            shape="dot"
+                        >
+                            <wd-radio :value="true">是</wd-radio>
+                            <wd-radio :value="false">否</wd-radio>
+                        </wd-radio-group>
+                    </view>
+                </wd-cell-group>
                 <view class="flex justify-end">
                     <wd-button
                         style="margin: 0"
@@ -94,3 +113,17 @@ defineExpose({
         </wd-form>
     </wd-popup>
 </template>
+
+<style lang="scss" scoped>
+.is-cell {
+    padding: var(--wot-input-cell-padding, 10px)
+        var(--wot-input-padding, var(--wot-size-side-padding, 15px));
+    display: flex;
+
+    .label {
+        width: 100px;
+        color: rgba(0, 0, 0, 0.85);
+        flex: 0 0 auto;
+    }
+}
+</style>

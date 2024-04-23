@@ -1,16 +1,21 @@
 import { defineStore } from 'pinia';
 
-export type RecordStatus = 'success' | 'fail' | 'pending';
+enum RecordStatus {
+    success = 'success',
+    fail = 'fail',
+    pending = 'pending',
+}
 
 export interface Record {
     date: number;
     month: number;
-    status: RecordStatus;
+    status: RecordStatus.success | RecordStatus.fail | RecordStatus.penging;
 }
 
 export interface Habit {
     name: string;
     record: Array<Record>;
+    isDayLong: boolean;
 }
 
 interface HabitState {
@@ -28,35 +33,55 @@ export const useHabitStore = defineStore({
     //   },
     // },
     actions: {
-        create(name: string) {
+        getRecord({ name, month, date }) {
+            return new Promise<Record | undefined>((resolve) => {
+                const habit = this.habitList.find((m) => m.name === name);
+                const record = habit?.record.find(
+                    (m) => m.month === month && m.date === date,
+                );
+                resolve(record);
+            });
+        },
+        create({ name, isDayLong }: { name: string; isDayLong: boolean }) {
             return new Promise<void>((resolve) => {
                 if (this.habitList.every((m) => m.name !== name)) {
                     this.habitList.push({
                         name,
                         record: [],
+                        isDayLong,
                     });
                 }
                 resolve();
             });
         },
-        updateStatus({
+        async updateStatus({
             name,
             month,
             date,
             status = 'success',
         }: Record & { name: string }) {
+            const record = await this.getRecord({ name, month, date });
             const habit = this.habitList.find((m) => m.name === name);
-            const record = habit?.record.find(
-                (m) => m.month === month && m.date === date,
-            );
             if (record) {
                 record.status = status;
-            } else if (habit) {
+            } else {
                 habit.record.push({
                     month,
                     date,
                     status,
                 });
+            }
+            for (let i = date - 1; i >= 1; i--) {
+                const record = await this.getRecord({ name, month, date: i });
+                if (record) {
+                    break;
+                } else {
+                    habit.record.push({
+                        month,
+                        date: i,
+                        status: RecordStatus.fail,
+                    });
+                }
             }
         },
         deleteStatus({ name }) {
